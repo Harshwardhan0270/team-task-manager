@@ -26,16 +26,7 @@ const createTaskValidators = [
 
   body('dueDate')
     .optional()
-    .isISO8601().withMessage('dueDate must be a valid ISO 8601 date')
-    .custom((value) => {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const due = new Date(value);
-      if (due < today) {
-        throw new Error('dueDate must not be in the past');
-      }
-      return true;
-    }),
+    .isISO8601().withMessage('dueDate must be a valid ISO 8601 date'),
 
   body('description')
     .optional()
