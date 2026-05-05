@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { projectsService } from '../services/projects'
-import { useAuth } from '../context/AuthContext'
 
 function formatDate(str) {
   if (!str) return ''
@@ -66,8 +65,6 @@ function ProjectForm({ project, onSuccess, onCancel }) {
 }
 
 export default function Projects() {
-  const { user } = useAuth()
-  const isAdmin = user?.role?.toLowerCase() === 'admin'
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
   const [showNew, setShowNew] = useState(false)
@@ -90,12 +87,10 @@ export default function Projects() {
           <h1 style={{ fontSize: '2rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em' }}>Projects</h1>
           <p style={{ fontSize: '0.875rem', color: '#71717a', marginTop: '0.25rem' }}>{projects.length} project{projects.length !== 1 ? 's' : ''}</p>
         </div>
-        {isAdmin && (
-          <button onClick={() => setShowNew(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', padding: '0.5rem 1rem', background: '#2563eb', border: 'none', borderRadius: 6, color: '#fff', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            New Project
-          </button>
-        )}
+        <button onClick={() => setShowNew(true)} style={{ display: 'flex', alignItems: 'center', gap: '0.375rem', padding: '0.5rem 1rem', background: '#2563eb', border: 'none', borderRadius: 6, color: '#fff', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Project
+        </button>
       </div>
 
       {loading ? (
@@ -105,7 +100,7 @@ export default function Projects() {
           <div style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>📁</div>
           <div style={{ fontWeight: 600, color: '#71717a', marginBottom: '0.375rem' }}>No projects yet</div>
           <div style={{ fontSize: '0.875rem', marginBottom: '1.25rem' }}>Create your first project to get started.</div>
-          {isAdmin && <button onClick={() => setShowNew(true)} style={{ padding: '0.5rem 1.25rem', background: '#2563eb', border: 'none', borderRadius: 6, color: '#fff', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Create Project</button>}
+          <button onClick={() => setShowNew(true)} style={{ padding: '0.5rem 1.25rem', background: '#2563eb', border: 'none', borderRadius: 6, color: '#fff', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Create Project</button>
         </div>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1rem' }}>
@@ -122,10 +117,8 @@ export default function Projects() {
                   onMouseEnter={e => e.currentTarget.style.background = '#1d4ed8'}
                   onMouseLeave={e => e.currentTarget.style.background = '#2563eb'}
                 >Open</Link>
-                {isAdmin && <>
-                  <button onClick={() => setEditing(p)} style={{ padding: '0.4rem 0.75rem', background: 'transparent', border: '1px solid #3f3f46', borderRadius: 6, color: '#a1a1aa', fontSize: '0.8125rem', cursor: 'pointer', fontFamily: 'inherit' }}>Edit</button>
-                  <button onClick={() => handleDelete(p.id)} style={{ padding: '0.4rem 0.75rem', background: 'transparent', border: '1px solid rgba(239,68,68,0.25)', borderRadius: 6, color: '#f87171', fontSize: '0.8125rem', cursor: 'pointer', fontFamily: 'inherit' }}>Delete</button>
-                </>}
+                <button onClick={() => setEditing(p)} style={{ padding: '0.4rem 0.75rem', background: 'transparent', border: '1px solid #3f3f46', borderRadius: 6, color: '#a1a1aa', fontSize: '0.8125rem', cursor: 'pointer', fontFamily: 'inherit' }}>Edit</button>
+                <button onClick={() => handleDelete(p.id)} style={{ padding: '0.4rem 0.75rem', background: 'transparent', border: '1px solid rgba(239,68,68,0.25)', borderRadius: 6, color: '#f87171', fontSize: '0.8125rem', cursor: 'pointer', fontFamily: 'inherit' }}>Delete</button>
               </div>
             </div>
           ))}
