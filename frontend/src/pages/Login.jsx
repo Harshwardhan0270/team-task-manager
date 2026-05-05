@@ -43,13 +43,14 @@ export default function Login() {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#09090b' }}>
 
-      {/* ── Left panel ── */}
-      <div style={{
+      {/* ── Left panel — hidden on mobile ── */}
+      <div className="auth-left-panel" style={{
         flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
         padding: '2rem 3rem', position: 'relative', overflow: 'hidden',
         background: 'radial-gradient(ellipse at 30% 60%, rgba(99,102,241,0.12) 0%, transparent 60%), #0a0a0f',
         borderRight: '1px solid #18181b',
       }}>
+        <style>{`@media(max-width:768px){.auth-left-panel{display:none!important}.auth-right-panel{width:100%!important;padding:2rem 1.5rem!important}}`}</style>
         <div style={{ position: 'absolute', inset: 0, backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.015\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")', opacity: 0.4 }} />
 
         {/* Brand */}
@@ -86,7 +87,7 @@ export default function Login() {
       </div>
 
       {/* ── Right panel ── */}
-      <div style={{
+      <div className="auth-right-panel" style={{
         width: 480, flexShrink: 0, display: 'flex', flexDirection: 'column',
         justifyContent: 'center', padding: '3rem 3rem',
         background: '#09090b',

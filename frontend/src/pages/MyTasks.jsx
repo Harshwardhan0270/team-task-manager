@@ -49,7 +49,7 @@ export default function MyTasks() {
   }
 
   return (
-    <div style={{ padding: '2.5rem' }}>
+    <div style={{ padding: 'clamp(1rem, 4vw, 2.5rem)' }}>
       <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>Workspace</div>
       <h1 style={{ fontSize: '2rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>My Tasks</h1>
       <p style={{ fontSize: '0.875rem', color: '#71717a', marginBottom: '1.5rem' }}>All tasks assigned to you</p>

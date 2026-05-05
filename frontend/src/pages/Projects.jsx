@@ -80,7 +80,7 @@ export default function Projects() {
   }
 
   return (
-    <div style={{ padding: '2.5rem' }}>
+    <div style={{ padding: 'clamp(1rem, 4vw, 2.5rem)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.375rem' }}>Workspace</div>

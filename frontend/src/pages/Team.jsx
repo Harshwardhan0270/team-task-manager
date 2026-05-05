@@ -33,7 +33,7 @@ export default function Team() {
   }
 
   return (
-    <div style={{ padding: '2.5rem 2.5rem' }}>
+    <div style={{ padding: 'clamp(1rem, 4vw, 2.5rem)' }}>
       <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>Workspace</div>
       <h1 style={{ fontSize: '2rem', fontWeight: 700, color: '#fff', letterSpacing: '-0.02em', marginBottom: '0.25rem' }}>Team</h1>
       <p style={{ fontSize: '0.875rem', color: '#71717a', marginBottom: '2rem' }}>{users.length} {users.length === 1 ? 'member' : 'members'}</p>
@@ -41,7 +41,7 @@ export default function Team() {
       {loading ? (
         <p style={{ color: '#71717a', fontSize: '0.875rem' }}>Loading…</p>
       ) : (
-        <div style={{ border: '1px solid #27272a', borderRadius: 8, overflow: 'hidden', background: '#18181b' }}>
+        <div style={{ border: '1px solid #27272a', borderRadius: 8, overflow: 'hidden', background: '#18181b', overflowX: 'auto' }}>
           {/* Header */}
           <div style={{
             display: 'grid', gridTemplateColumns: '5fr 4fr 2fr 1fr',

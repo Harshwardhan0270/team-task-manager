@@ -258,7 +258,7 @@ export default function ProjectDetail() {
   if (loading) return <div style={{ padding: '2.5rem', color: '#71717a', fontSize: '0.875rem' }}>Loading…</div>
 
   return (
-    <div style={{ padding: '2.5rem', minHeight: '100vh' }}>
+    <div style={{ padding: 'clamp(1rem, 4vw, 2.5rem)', minHeight: '100vh' }}>
       {/* Back */}
       <Link to="/projects" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.75rem', color: '#71717a', textDecoration: 'none', marginBottom: '1rem', transition: 'color 0.15s' }}
         onMouseEnter={e => e.currentTarget.style.color = '#fff'}

@@ -44,7 +44,7 @@ export default function Dashboard() {
   const total = todo + inProgress + done
 
   return (
-    <div style={{ padding: '2.5rem' }}>
+    <div style={{ padding: 'clamp(1rem, 4vw, 2.5rem)' }}>
       {/* Header */}
       <div style={{ marginBottom: '2rem' }}>
         <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.375rem' }}>OVERVIEW</div>
@@ -53,7 +53,9 @@ export default function Dashboard() {
       </div>
 
       {/* Top 4 stat cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem', marginBottom: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}
+        className="stat-grid">
+        <style>{`@media(min-width:640px){.stat-grid{grid-template-columns:repeat(4,1fr)!important}}`}</style>
         <StatCard label="TOTAL TASKS" value={total}
           icon={<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>}
         />
@@ -69,7 +71,8 @@ export default function Dashboard() {
       </div>
 
       {/* Main 2-col layout */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '1.25rem', alignItems: 'start' }}>
+      <div className="dash-main-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.25rem', alignItems: 'start' }}>
+        <style>{`@media(min-width:900px){.dash-main-grid{grid-template-columns:1fr 300px!important}}`}</style>
 
         {/* Left: Status Breakdown */}
         <div style={{ background: '#18181b', border: '1px solid #27272a', borderRadius: 8, padding: '1.25rem' }}>
@@ -78,7 +81,8 @@ export default function Dashboard() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#52525b" strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
+          <div className="status-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.75rem', marginBottom: '1.5rem' }}>
+            <style>{`@media(min-width:480px){.status-grid{grid-template-columns:repeat(3,1fr)!important}}`}</style>
             {[
               { label: 'TO DO', value: todo, color: '#94a3b8' },
               { label: 'IN PROGRESS', value: inProgress, color: '#60a5fa' },
@@ -165,7 +169,8 @@ export default function Dashboard() {
       {adminSummary && (
         <div style={{ marginTop: '1.5rem' }}>
           <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#71717a', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.875rem' }}>ADMIN OVERVIEW — ALL PROJECTS</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+          <div className="admin-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+            <style>{`@media(min-width:480px){.admin-grid{grid-template-columns:repeat(3,1fr)!important}}`}</style>
             {[
               { label: 'TOTAL TO DO', value: adminSummary.tasksByStatus?.['Todo'] ?? 0 },
               { label: 'TOTAL IN PROGRESS', value: adminSummary.tasksByStatus?.['In Progress'] ?? 0, color: '#60a5fa' },
