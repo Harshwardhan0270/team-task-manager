@@ -140,12 +140,6 @@ export default function Login() {
             onMouseLeave={e => e.target.style.color = '#818cf8'}
           >Create one</Link>
         </p>
-
-        {/* Demo hint */}
-        <div style={{ marginTop: '2rem', background: '#18181b', border: '1px solid #27272a', borderRadius: 8, padding: '0.875rem 1rem' }}>
-          <div style={{ fontSize: '0.6875rem', fontWeight: 700, color: '#52525b', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '0.375rem' }}>DEMO ADMIN</div>
-          <div style={{ fontSize: '0.8125rem', color: '#71717a' }}>Sign up with any email / password (8+ chars)</div>
-        </div>
       </div>
     </div>
   )
