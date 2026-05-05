@@ -25,10 +25,21 @@ export default function Signup() {
       await authService.register({ email, displayName, password, role })
       navigate('/login')
     } catch (err) {
+      const status = err.response?.status
       const data = err.response?.data
-      if (data?.details?.length) setErrors(data.details)
-      else if (data?.error) setErrors([data.error])
-      else setErrors(['Registration failed. Please try again.'])
+      if (!err.response) {
+        setErrors(['Cannot connect to server. Please wait a moment and try again.'])
+      } else if (status === 404) {
+        setErrors(['Server is starting up. Please wait 30 seconds and try again.'])
+      } else if (status === 409) {
+        setErrors(['This email is already registered. Please sign in instead.'])
+      } else if (data?.details?.length) {
+        setErrors(data.details)
+      } else if (data?.error) {
+        setErrors([data.error])
+      } else {
+        setErrors(['Registration failed. Please try again.'])
+      }
     } finally { setLoading(false) }
   }
 

@@ -20,7 +20,14 @@ export default function Login() {
       login(data.token, data.user)
       navigate('/dashboard')
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed. Please try again.')
+      const status = err.response?.status
+      if (!err.response) {
+        setError('Cannot connect to server. Please wait a moment and try again.')
+      } else if (status === 404) {
+        setError('Server is starting up. Please wait 30 seconds and try again.')
+      } else {
+        setError(err.response?.data?.error || 'Login failed. Please try again.')
+      }
     } finally {
       setLoading(false)
     }

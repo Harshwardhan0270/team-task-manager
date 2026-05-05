@@ -4,8 +4,12 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import App from './App'
 import './styles.css'
+import api from './services/api'
 
-// Reset body — pages control their own background
+// Wake up the backend on app load (Render free tier sleeps after 15 min)
+api.get('/health').catch(() => {})
+
+// Reset body
 document.body.style.margin = '0'
 document.body.style.padding = '0'
 document.body.style.background = '#09090b'
