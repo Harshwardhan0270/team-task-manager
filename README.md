@@ -1,67 +1,73 @@
 # Team Task Manager
 
-A full-stack collaborative task management web application built with **Node.js/Express**, **SQLite**, and **React (Vite)**. Inspired by tools like Trello and Asana.
+A full-stack collaborative task management web application — a simplified Trello/Asana clone built with **Node.js/Express**, **SQLite**, and **React (Vite)**.
 
-## Live Demo
+## 🚀 Live Demo
 
-> **Frontend:** https://your-frontend.railway.app  
-> **Backend API:** https://your-backend.railway.app/api
+| | URL |
+|---|---|
+| **Frontend** | https://team-task-manager-1-w7w9.onrender.com |
+| **Backend API** | https://team-task-manager-3b7j.onrender.com/api |
+| **GitHub** | https://github.com/Harshwardhan0270/team-task-manager |
+
+> ⚠️ Render free tier sleeps after 15 min of inactivity. First load may take 30–60 seconds.
 
 ---
 
-## Features
+## ✨ Features
 
-- **Authentication** — Signup/Login with JWT, bcrypt password hashing
-- **Role-Based Access** — Admin and Member roles (per project and globally)
+- **Authentication** — Signup/Login with JWT, bcrypt password hashing (cost factor 12)
+- **Role-Based Access** — Admin and Member roles (global + per-project)
 - **Project Management** — Create projects, add/remove team members
-- **Task Management** — Create tasks with title, description, due date, priority; assign to members
 - **Kanban Board** — Visual task board with To Do / In Progress / Done columns
+- **Task Management** — Title, description, due date, priority, assignee
 - **Dashboard** — Live stats: total tasks, open tasks, overdue tasks, status breakdown
-- **My Tasks** — Personal task view with filters
+- **My Tasks** — Personal task view with filters (All / Open / Done / Overdue)
 - **Team Page** — View all workspace members, Admins can change roles
 
 ---
 
-## Tech Stack
+## 🛠 Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
 | Frontend | React 18, Vite, React Router v6, Axios |
-| Backend | Node.js, Express 4, better-sqlite3 |
-| Database | SQLite (file-based) |
+| Backend | Node.js, Express 4 |
+| Database | SQLite (better-sqlite3) |
 | Auth | JWT (jsonwebtoken), bcryptjs |
 | Validation | express-validator |
-| Deployment | Railway |
+| Deployment | Render |
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
+team-task-manager/
 ├── backend/
 │   ├── modules/
-│   │   ├── auth/          # Register, Login
+│   │   ├── auth/          # Register, Login endpoints
 │   │   ├── projects/      # Project CRUD
 │   │   ├── tasks/         # Task CRUD + Kanban
 │   │   ├── teams/         # Member management
 │   │   ├── dashboard/     # Aggregated stats
 │   │   └── users/         # User list, My Tasks, Role management
 │   ├── middleware/
-│   │   ├── auth.js        # JWT validation
+│   │   ├── auth.js        # JWT validation middleware
 │   │   ├── rbac.js        # Role-based access control
-│   │   └── validate.js    # Request validation
-│   ├── db.js              # SQLite connection + schema
-│   ├── router.js          # Top-level router
+│   │   └── validate.js    # Request validation errors
+│   ├── db.js              # SQLite connection + schema init
+│   ├── router.js          # Top-level API router
 │   └── server.js          # Express app entry point
 │
 └── frontend/
     └── src/
         ├── pages/
-        │   ├── Dashboard.jsx
-        │   ├── Projects.jsx
+        │   ├── Dashboard.jsx      # Stats overview
+        │   ├── Projects.jsx       # Project list
         │   ├── ProjectDetail.jsx  # Kanban board
-        │   ├── MyTasks.jsx
-        │   ├── Team.jsx
+        │   ├── MyTasks.jsx        # Personal task view
+        │   ├── Team.jsx           # Team members
         │   ├── Login.jsx
         │   └── Signup.jsx
         ├── components/
@@ -69,130 +75,12 @@ A full-stack collaborative task management web application built with **Node.js/
         │   └── ProtectedRoute.jsx
         ├── services/              # Axios API calls
         └── context/
-            └── AuthContext.jsx    # Global auth state
+            └── AuthContext.jsx    # Global auth state (JWT)
 ```
 
 ---
 
-## Local Setup
-
-### Prerequisites
-- Node.js 18+
-- npm
-
-### Backend
-
-```bash
-cd backend
-npm install
-cp .env.example .env
-# Edit .env — set JWT_SECRET to a random 32+ character string
-npm start
-# Server runs on http://localhost:5000
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-# Create .env.local (optional — defaults to localhost:5000)
-echo "VITE_API_URL=http://localhost:5000/api" > .env.local
-npm run dev
-# App runs on http://localhost:5173
-```
-
----
-
-## API Endpoints
-
-### Auth
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/register` | Register new user |
-| POST | `/api/auth/login` | Login, returns JWT |
-
-### Projects
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/projects` | List user's projects |
-| POST | `/api/projects` | Create project (Admin) |
-| PUT | `/api/projects/:id` | Update project (Admin) |
-| DELETE | `/api/projects/:id` | Delete project (Admin) |
-
-### Tasks
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/projects/:id/tasks` | List tasks |
-| POST | `/api/projects/:id/tasks` | Create task (Admin) |
-| PATCH | `/api/projects/:id/tasks/:taskId` | Update task status |
-| PUT | `/api/projects/:id/tasks/:taskId` | Full task update |
-| DELETE | `/api/projects/:id/tasks/:taskId` | Delete task (Admin) |
-
-### Team
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/projects/:id/members` | List members |
-| POST | `/api/projects/:id/members` | Add member (Admin) |
-| DELETE | `/api/projects/:id/members/:userId` | Remove member (Admin) |
-
-### Dashboard & Users
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/api/dashboard` | Dashboard stats |
-| GET | `/api/users` | All users |
-| GET | `/api/users/me/tasks` | My assigned tasks |
-| PATCH | `/api/users/:id/role` | Change user role (Admin) |
-
----
-
-## Deployment on Railway
-
-### Backend Service
-
-1. Go to [railway.app](https://railway.app) → New Project → Deploy from GitHub
-2. Select the repo, set **Root Directory** to `backend`
-3. Add environment variables:
-   ```
-   JWT_SECRET=<random 32+ char string>
-   PORT=5000
-   NODE_ENV=production
-   ```
-4. Railway auto-detects Node.js and runs `npm start`
-
-### Frontend Service
-
-1. Add another service in the same Railway project
-2. Set **Root Directory** to `frontend`
-3. Add environment variables:
-   ```
-   VITE_API_URL=https://<your-backend-service>.railway.app/api
-   ```
-4. Set **Build Command**: `npm run build`
-5. Set **Start Command**: `npm run start`
-
-### Database
-
-SQLite is file-based and included in the backend. For production persistence on Railway, the database file is stored at `backend/data/database.db`. Railway's ephemeral filesystem means data resets on redeploy — for persistent storage, consider adding a Railway PostgreSQL plugin and migrating the schema.
-
----
-
-## Environment Variables
-
-### Backend (`.env`)
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `JWT_SECRET` | Secret key for JWT signing (min 32 chars) | ✅ |
-| `PORT` | Server port (default: 5000) | Optional |
-
-### Frontend (`.env.local`)
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `VITE_API_URL` | Backend API base URL | Optional (defaults to localhost:5000/api) |
-
----
-
-## Database Schema
+## 🗄 Database Schema
 
 ```sql
 users         — id, email, display_name, password_hash, role, created_at
@@ -204,23 +92,111 @@ tasks         — id, project_id, assignee_id, title, description,
 
 ---
 
-## Security
+## 🔌 API Endpoints
 
-- Passwords hashed with **bcrypt** (cost factor 12)
-- JWT tokens expire after **24 hours**
-- All API routes (except `/auth/register` and `/auth/login`) require a valid JWT
-- Project-scoped RBAC — roles are enforced per project
-- Input validation on all endpoints via `express-validator`
-- CORS configured for frontend origin
+### Auth
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register new user |
+| POST | `/api/auth/login` | Login, returns JWT |
+
+### Projects
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/projects` | List user's projects |
+| POST | `/api/projects` | Create project |
+| PUT | `/api/projects/:id` | Update project |
+| DELETE | `/api/projects/:id` | Delete project |
+
+### Tasks
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/projects/:id/tasks` | List tasks |
+| POST | `/api/projects/:id/tasks` | Create task (Admin) |
+| PATCH | `/api/projects/:id/tasks/:taskId` | Update task status |
+| PUT | `/api/projects/:id/tasks/:taskId` | Full task update |
+| DELETE | `/api/projects/:id/tasks/:taskId` | Delete task (Admin) |
+
+### Team & Users
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/projects/:id/members` | List members |
+| POST | `/api/projects/:id/members` | Add member (Admin) |
+| DELETE | `/api/projects/:id/members/:userId` | Remove member (Admin) |
+| GET | `/api/users` | All users |
+| GET | `/api/users/me/tasks` | My assigned tasks |
+| PATCH | `/api/users/:id/role` | Change role (Admin) |
+| GET | `/api/dashboard` | Dashboard stats |
 
 ---
 
-## Author
+## ⚙️ Local Setup
 
-Built as a full-stack coding assignment demonstrating:
-- REST API design
-- JWT authentication
-- Role-based access control
-- Relational database design
-- React SPA with protected routes
-- Railway deployment
+### Prerequisites
+- Node.js 18+
+- npm
+
+### Backend
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+# Edit .env — set JWT_SECRET to any 32+ character string
+npm start
+# Runs on http://localhost:5000
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+# Optional: create .env.local
+echo "VITE_API_URL=http://localhost:5000/api" > .env.local
+npm run dev
+# Runs on http://localhost:5173
+```
+
+---
+
+## 🌐 Deployment
+
+### Backend (Render Web Service)
+1. Connect GitHub repo on [render.com](https://render.com)
+2. Root Directory: `backend`
+3. Build Command: `npm install`
+4. Start Command: `node server.js`
+5. Environment variables:
+   ```
+   JWT_SECRET=your_secret_32_chars_minimum
+   NODE_ENV=production
+   FRONTEND_URL=https://your-frontend.onrender.com
+   ```
+
+### Frontend (Render Static Site)
+1. Root Directory: `frontend`
+2. Build Command: `npm install && npm run build`
+3. Publish Directory: `dist`
+4. Environment variable:
+   ```
+   VITE_API_URL=https://your-backend.onrender.com/api
+   ```
+
+---
+
+## 🔒 Security
+
+- Passwords hashed with **bcrypt** (cost factor 12)
+- JWT tokens expire after **24 hours**
+- All routes except `/auth/register` and `/auth/login` require valid JWT
+- Project-scoped RBAC — roles enforced per project
+- Input validation on all endpoints via `express-validator`
+- CORS configured for frontend origin only
+
+---
+
+## 👤 Author
+
+**Harshwardhan Sahu**  
+GitHub: [@Harshwardhan0270](https://github.com/Harshwardhan0270)
