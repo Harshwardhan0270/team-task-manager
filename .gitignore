@@ -1,3 +1,6 @@
+# Kiro specs (internal planning docs)
+.kiro/
+
 # Dependencies
 node_modules/
 backend/node_modules/
